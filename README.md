@@ -13,17 +13,21 @@ Linger 很輕量，一般家用 NAS 都跑得動。
 
 | 項目 | 需求 |
 | --- | --- |
-| 處理器 | Intel／AMD（x86_64）或 ARM64；平常幾乎不占 CPU |
+| 處理器 | Intel／AMD（x86_64）或 64 位元 ARM；平常幾乎不占 CPU。不支援 32 位元 ARM 的舊機種 |
 | 記憶體 | 執行時約 250 MB，最多 512 MB；建議 NAS 或虛擬機至少 1 GB（Synology 建議 2 GB 以上） |
 | 硬碟 | 約 1 GB（程式約 400 MB，你的資料與每日備份通常只有幾 MB） |
 | Synology | DSM 7.2.1 以上，且機型支援 Container Manager（套件中心搜得到 Container Manager 即可） |
+| QNAP | 已從 App Center 安裝 Container Station |
 | Mac | macOS 13 以上 |
+
+網址一律是 `http://`（不是 https），預設連接埠 8088，安裝時可以改。
+安裝與更新都不需要連網；裝好後會定期向 GitHub 查詢有沒有新版本（可關閉）。
 
 ## 下載哪一個？
 
 | 我要安裝在 | 下載的檔案 |
 | --- | --- |
-| NAS 的虛擬機，或任何裝了 Docker 的主機 | `linger-版本-docker.zip` |
+| QNAP NAS、NAS 的虛擬機，或任何裝了 Docker 的主機 | `linger-版本-docker.zip` |
 | Synology NAS（Intel／AMD 處理器，多數「+」機型） | `linger-版本-synology-x86_64.spk` |
 | Synology NAS（ARM 處理器） | `linger-版本-synology-armv8.spk` |
 | Mac（Apple M 系列晶片） | `Linger_版本_aarch64.zip` |
@@ -34,19 +38,23 @@ Linger 很輕量，一般家用 NAS 都跑得動。
 
 ## 安裝伺服器（擇一）
 
-### 方法一：交給 AI 安裝（NAS 虛擬機或 Docker 主機）
+### 方法一：交給 AI 安裝（QNAP、NAS 虛擬機或 Docker 主機）
+
+需要：x86_64 或 64 位元 ARM、記憶體 1 GB 以上、硬碟約 1 GB；QNAP 需先安裝 Container Station。
 
 1. 下載 `linger-版本-docker.zip` 並解壓縮
 2. 把解壓縮出來的資料夾交給 AI 助理（例如 Claude Code），跟它說：
 
    > 請依照 AI_INSTALL.md，把 Linger 安裝到我的 NAS 虛擬機上。
 
-3. AI 會問你虛擬機的 IP、登入帳號，以及要不要指定網頁連接埠（不指定就用 8088，被占用時自動換一個），其餘都由 AI 完成
+3. AI 會問你 NAS 的 IP、登入帳號，以及要不要指定網頁連接埠（不指定就用 8088，被占用時自動換一個），其餘都由 AI 完成
+   - QNAP、Synology 要先在控制台開啟 SSH，AI 會告訴你怎麼開
+   - 不想開 SSH：跟 AI 說「用不需要 SSH 的方式」，它會帶你在 Container Station 網頁介面完成
 4. 完成後用瀏覽器開啟 AI 給你的網址（例如 `http://<IP>:8088/`），建立你的帳號
 
 ### 方法二：Synology 套件中心
 
-需要 DSM 7.2.1 以上，並已從套件中心安裝 **Container Manager**。
+需要 DSM 7.2.1 以上、記憶體建議 2 GB 以上，並已從套件中心安裝 **Container Manager**（不支援 Container Manager 的機型無法安裝）。
 
 1. 下載對應處理器的 `.spk`
 2. 套件中心 › 右上角「手動安裝」› 選擇下載的 `.spk`
@@ -54,6 +62,8 @@ Linger 很輕量，一般家用 NAS 都跑得動。
 4. 用瀏覽器開啟 `http://<NAS IP>:連接埠/`（預設 `http://<NAS IP>:8088/`），建立你的帳號
 
 ## 安裝 Mac App
+
+需要 macOS 13 以上，Apple M 系列晶片或 Intel 處理器皆可。
 
 1. 下載對應晶片的 `.zip`，雙擊解壓縮得到 Linger
 2. 雙擊 Linger 開啟。第一次若出現「無法驗證開發者」：
