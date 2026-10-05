@@ -17,7 +17,6 @@ Linger 很輕量，一般家用 NAS 都跑得動。
 | 記憶體 | 執行時約 250 MB，最多 512 MB；建議 NAS 或虛擬機至少 1 GB（Synology 建議 2 GB 以上） |
 | 硬碟 | 約 1 GB（程式約 400 MB，你的資料與每日備份通常只有幾 MB） |
 | Synology | DSM 7.2.1 以上，且機型支援 Container Manager（套件中心搜得到 Container Manager 即可） |
-| QNAP | 已從 App Center 安裝 Container Station |
 | Mac | macOS 13 以上 |
 
 網址一律是 `http://`（不是 https），預設連接埠 8088，安裝時可以改。
@@ -27,7 +26,7 @@ Linger 很輕量，一般家用 NAS 都跑得動。
 
 | 我要安裝在 | 下載的檔案 |
 | --- | --- |
-| QNAP NAS、NAS 的虛擬機，或任何裝了 Docker 的主機 | `linger-版本-docker.zip` |
+| NAS 的虛擬機（VM），或裝了 Docker 的 Linux 主機 | `linger-版本-docker.zip` |
 | Synology NAS（Intel／AMD 處理器，多數「+」機型） | `linger-版本-synology-x86_64.spk` |
 | Synology NAS（ARM 處理器） | `linger-版本-synology-armv8.spk` |
 | Mac（Apple M 系列晶片） | `Linger_版本_aarch64.zip` |
@@ -38,19 +37,17 @@ Linger 很輕量，一般家用 NAS 都跑得動。
 
 ## 安裝伺服器（擇一）
 
-### 方法一：交給 AI 安裝（QNAP、NAS 虛擬機或 Docker 主機）
+### 方法一：NAS 的虛擬機或 Linux 主機（docker.zip）
 
-需要：x86_64 或 64 位元 ARM、記憶體 1 GB 以上、硬碟約 1 GB；QNAP 需先安裝 Container Station。
+需要：已安裝 Docker 的 Linux（x86_64 或 64 位元 ARM）、記憶體 1 GB 以上、硬碟約 1 GB。
 
-1. 下載 `linger-版本-docker.zip` 並解壓縮
-2. 把解壓縮出來的資料夾交給 AI 助理（例如 Claude Code），跟它說：
-
-   > 請依照 AI_INSTALL.md，把 Linger 安裝到我的 NAS 虛擬機上。
-
-3. AI 會問你 NAS 的 IP、登入帳號，以及要不要指定網頁連接埠（不指定就用 8088，被占用時自動換一個），其餘都由 AI 完成
-   - QNAP、Synology 要先在控制台開啟 SSH，AI 會告訴你怎麼開
-   - 不想開 SSH：跟 AI 說「用不需要 SSH 的方式」，它會帶你在 Container Station 網頁介面完成
-4. 完成後用瀏覽器開啟 AI 給你的網址（例如 `http://<IP>:8088/`），建立你的帳號
+1. 下載 `linger-版本-docker.zip` 並解壓縮，裡面的 `README.txt` 有完整說明
+2. 擇一：
+   - **交給 AI**：把資料夾交給 AI 助理（例如 Claude Code），說「請依照 AI_INSTALL.md，把 Linger 安裝到我的虛擬機上」。
+     AI 會問你主機 IP 和登入帳號；需要管理員密碼時，AI 會給你一行指令讓你自己貼上執行，不用把密碼告訴 AI
+   - **自己執行**：把資料夾放到主機上，在資料夾內執行 `sudo sh install.sh`
+3. 安裝程式最後會印出網址（例如 `http://192.168.1.50:8088/`），用瀏覽器打開
+4. 第一次打開會出現「歡迎使用 Linger」設定頁：在網頁上設定管理員帳號、密碼與時區，完成後登入即可
 
 ### 方法二：Synology 套件中心
 
@@ -77,5 +74,4 @@ Linger 很輕量，一般家用 NAS 都跑得動。
 - **伺服器**：下載新版安裝包，用**當初安裝的同一種方法**再裝一次即可，資料會保留
   （AI 安裝的版本，跟 AI 說「依 AI_INSTALL.md 的『更新到新版本』更新 Linger」）
   - 安裝程式會自動找到原本的安裝位置與資料，不會接到空的資料
-  - 「交給 AI／指令安裝」、「網頁介面安裝」、「Synology 套件」三種方式的資料放在不同地方，**不能混用**；
-    要換方式時交給 AI 處理，它會先檢查並把資料搬過去
+  - 虛擬機版與 Synology 套件是兩種獨立的安裝方式，資料放在不同地方，請不要混用
