@@ -7,6 +7,18 @@ Mac App 會在時間到時跳出置頂提醒，處理之前不會消失。
 
 本頁只提供安裝檔下載；原始碼不公開。
 
+## 系統需求
+
+Linger 很輕量，一般家用 NAS 都跑得動。
+
+| 項目 | 需求 |
+| --- | --- |
+| 處理器 | Intel／AMD（x86_64）或 ARM64；平常幾乎不占 CPU |
+| 記憶體 | 執行時約 250 MB，最多 512 MB；建議 NAS 或虛擬機至少 1 GB（Synology 建議 2 GB 以上） |
+| 硬碟 | 約 1 GB（程式約 400 MB，你的資料與每日備份通常只有幾 MB） |
+| Synology | DSM 7.2.1 以上，且機型支援 Container Manager（套件中心搜得到 Container Manager 即可） |
+| Mac | macOS 13 以上 |
+
 ## 下載哪一個？
 
 | 我要安裝在 | 下載的檔案 |
