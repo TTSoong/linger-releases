@@ -20,13 +20,13 @@ Linger 很輕量，一般家用 NAS 都跑得動。
 | Mac | macOS 13 以上 |
 
 網址一律是 `http://`（不是 https），預設連接埠 8088，安裝時可以改。
-安裝與更新都不需要連網；裝好後會定期向 GitHub 查詢有沒有新版本（可關閉）。
+Linger 本身安裝與更新不需要連網（虛擬機還沒有 Docker 時，會自動下載安裝 Docker，這一步需要連網）；裝好後會定期向 GitHub 查詢有沒有新版本（可關閉）。
 
 ## 下載哪一個？
 
 | 我要安裝在 | 下載的檔案 |
 | --- | --- |
-| NAS 的虛擬機（VM），或裝了 Docker 的 Linux 主機 | `linger-版本-docker.zip` |
+| NAS 的虛擬機（VM）或 Linux 主機 | `linger-版本-docker.zip` |
 | Synology NAS（Intel／AMD 處理器，多數「+」機型） | `linger-版本-synology-x86_64.spk` |
 | Synology NAS（ARM 處理器） | `linger-版本-synology-armv8.spk` |
 | Mac（Apple M 系列晶片） | `Linger_版本_aarch64.zip` |
@@ -39,13 +39,19 @@ Linger 很輕量，一般家用 NAS 都跑得動。
 
 ### 方法一：NAS 的虛擬機或 Linux 主機（docker.zip）
 
-需要：已安裝 Docker 的 Linux（x86_64 或 64 位元 ARM）、記憶體 1 GB 以上、硬碟約 1 GB。
+需要：Linux 虛擬機（x86_64 或 64 位元 ARM）、記憶體 1 GB 以上、硬碟約 1 GB，以及一個能用 sudo 的登入帳號。
+**不用先裝 Docker**，沒有的話安裝程式會自動安裝（需要連網）。
 
 1. 下載 `linger-版本-docker.zip` 並解壓縮，裡面的 `README.txt` 有完整說明
 2. 擇一：
    - **交給 AI**：把資料夾交給 AI 助理（例如 Claude Code），說「請依照 AI_INSTALL.md，把 Linger 安裝到我的虛擬機上」。
-     AI 會問你主機 IP 和登入帳號；需要管理員密碼時，AI 會給你一行指令讓你自己貼上執行，不用把密碼告訴 AI
-   - **自己執行**：把資料夾放到主機上，在資料夾內執行 `sudo sh install.sh`
+     AI 會問你虛擬機的 IP 和登入帳號。過程中 AI 最多會給你兩行指令，請你自己貼到電腦的終端機、輸入虛擬機密碼
+     （一行讓 AI 之後能免密碼登入、一行做第一次安裝）；密碼不用告訴 AI，之後的更新也不用再輸入
+   - **自己安裝**：在電腦的終端機（Mac：終端機；Windows：PowerShell）貼上兩行，把「帳號」「IP」換成你的：
+     ```
+     scp -r linger-版本 帳號@IP:~/
+     ssh -t 帳號@IP "cd ~/linger-版本 && sudo sh install.sh"
+     ```
 3. 安裝程式最後會印出網址（例如 `http://192.168.1.50:8088/`），用瀏覽器打開
 4. 第一次打開會出現「歡迎使用 Linger」設定頁：在網頁上設定管理員帳號、密碼與時區，完成後登入即可
 
